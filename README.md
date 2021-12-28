@@ -1,3 +1,3 @@
-# CCSADP
-Cloud Computing Systems: A Developer's Perspective<br/>
-《云计算系统：开发者的视角》书稿
+# 《云计算系统：开发者视角》实践
+
+实践资源仓库

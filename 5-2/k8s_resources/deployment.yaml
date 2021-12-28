@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: hello
+  namespace: default
+  labels:
+    app: hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+        - name: hello
+          image: openxlab/csapp:5.2.hello
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: logs
+              mountPath: /tmp/log
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+        - name: reporter
+          image: openxlab/csapp:5.2.reporter
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: logs
+              mountPath: /tmp/log
+      volumes:
+        - name: logs
+          emptyDir: {}
